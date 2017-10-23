@@ -2,20 +2,28 @@ package com.enhancedapps.scrumpoker;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageButton;
+import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
-import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private TableLayout tableLayout;
     final Context context = this;
+    String[] numbers = new String[] {
+        "0","1/2","1",
+        "2","3","5",
+        "8","13","20",
+        "40","99","100",
+        "∞","?"
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,38 +32,75 @@ public class MainActivity extends AppCompatActivity {
 
         tableLayout = (TableLayout) findViewById(R.id.tableLayoutCards);
 
-        for(int i = 1; i<=5; i++){
+        List<Button> buttons = initiateButtons();
+
+        for (int i = 0; i<buttons.size(); i=i+3){
 
             TableRow tableRow = new TableRow(this);
 
-            for(int j = 1; j<=4; j++){
-
-                TableRow.LayoutParams layout = new TableRow.LayoutParams();
-                layout.width = TableRow.LayoutParams.WRAP_CONTENT;
-                layout.height = TableRow.LayoutParams.WRAP_CONTENT;
-                layout.weight = 1;
-
-                final ImageButton imageButton = new ImageButton(this);
-
-                imageButton.setId(i+j);
-                imageButton.setBackground(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-                imageButton.setImageResource(R.mipmap.ic_launcher);
-                imageButton.setLayoutParams(layout);
-
-
-                imageButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        //Toast.makeText(context,v.getId()+"",Toast.LENGTH_SHORT).show();
-                        animatedStartActivity();
-                    }
-                });
-
-                tableRow.addView(imageButton);
-            }
+            tableRow.addView(buttons.get(i));
+            tableRow.addView(buttons.get(i+1));
+            tableRow.addView(buttons.get(i+2));
 
             tableLayout.addView(tableRow);
         }
+    }
+
+    private List<Button> initiateButtons(){
+        List<Button> buttons = new ArrayList<Button>();
+
+        final float scale = this.getResources().getDisplayMetrics().density;
+
+        for (String number:numbers) {
+
+            Button button = new Button(this);
+            button.setBackgroundResource(R.drawable.button_border);
+            button.setTextColor(Color.WHITE);
+            button.setText(number);
+
+            TableRow.LayoutParams layout = new TableRow.LayoutParams();
+            layout.width = TableRow.LayoutParams.MATCH_PARENT;
+            layout.height = (int) (80 * scale + 0.5f);
+            layout.weight = 1;
+
+            button.setLayoutParams(layout);
+
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //Toast.makeText(context,v.getId()+"",Toast.LENGTH_SHORT).show();
+                    animatedStartActivity();
+                }
+            });
+
+            buttons.add(button);
+        }
+
+        //COFFE BUTTON (LAST)
+        Button button = new Button(this);
+        button.setBackgroundResource(R.drawable.button_border);
+        button.setTextColor(Color.WHITE);
+        button.setText("COFFE");
+
+        TableRow.LayoutParams layout = new TableRow.LayoutParams();
+        layout.width = TableRow.LayoutParams.MATCH_PARENT;
+        int height = (int) (80 * scale + 0.5f);
+        layout.height = height;
+        layout.weight = 1;
+
+        button.setLayoutParams(layout);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Toast.makeText(context,v.getId()+"",Toast.LENGTH_SHORT).show();
+                animatedStartActivity();
+            }
+        });
+
+        buttons.add(button);
+
+        return buttons;
     }
 
     @Override
@@ -74,13 +119,14 @@ public class MainActivity extends AppCompatActivity {
         // disable default animation for new intent
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         ActivitySwitcher.animationOut(
-            findViewById(R.id.container),
-            getWindowManager(),
-            new ActivitySwitcher.AnimationFinishedListener() {
-                @Override
-                public void onAnimationFinished() {
-                    startActivity(intent);
-                }
-        });
+                findViewById(R.id.container),
+                getWindowManager(),
+                new ActivitySwitcher.AnimationFinishedListener() {
+                    @Override
+                    public void onAnimationFinished() {
+                        startActivity(intent);
+                    }
+                });
     }
+
 }
