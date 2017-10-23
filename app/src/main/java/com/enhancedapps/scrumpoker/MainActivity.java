@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
                 final ImageButton imageButton = new ImageButton(this);
 
-                imageButton.setId(R.id.imageButton+i+j);
+                imageButton.setId(i+j);
                 imageButton.setBackground(new ColorDrawable(android.graphics.Color.TRANSPARENT));
                 imageButton.setImageResource(R.mipmap.ic_launcher);
                 imageButton.setLayoutParams(layout);
