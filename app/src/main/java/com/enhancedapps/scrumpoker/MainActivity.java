@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
@@ -16,7 +17,6 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private TableLayout tableLayout;
-    final Context context = this;
     String[] numbers = new String[] {
         "0","1/2","1",
         "2","3","5",
@@ -51,17 +51,22 @@ public class MainActivity extends AppCompatActivity {
 
         final float scale = this.getResources().getDisplayMetrics().density;
 
+        TableRow.LayoutParams layout = new TableRow.LayoutParams();
+        layout.width = TableRow.LayoutParams.MATCH_PARENT;
+        layout.height = (int) (80 * scale + 0.5f);
+        layout.weight = 1;
+        layout.leftMargin = (int) (25 * scale + 0.5f);
+        layout.rightMargin = (int) (25 * scale + 0.5f);
+        layout.topMargin = (int) (5 * scale + 0.5f);
+        layout.bottomMargin = (int) (5 * scale + 0.5f);
+
         for (String number:numbers) {
 
             Button button = new Button(this);
             button.setBackgroundResource(R.drawable.button_border);
             button.setTextColor(Color.WHITE);
             button.setText(number);
-
-            TableRow.LayoutParams layout = new TableRow.LayoutParams();
-            layout.width = TableRow.LayoutParams.MATCH_PARENT;
-            layout.height = (int) (80 * scale + 0.5f);
-            layout.weight = 1;
+            button.setTextSize(TypedValue.COMPLEX_UNIT_SP,22);
 
             button.setLayoutParams(layout);
 
@@ -81,12 +86,6 @@ public class MainActivity extends AppCompatActivity {
         button.setBackgroundResource(R.drawable.button_border);
         button.setTextColor(Color.WHITE);
         button.setText("COFFE");
-
-        TableRow.LayoutParams layout = new TableRow.LayoutParams();
-        layout.width = TableRow.LayoutParams.MATCH_PARENT;
-        int height = (int) (80 * scale + 0.5f);
-        layout.height = height;
-        layout.weight = 1;
 
         button.setLayoutParams(layout);
 
