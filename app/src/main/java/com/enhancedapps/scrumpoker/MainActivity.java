@@ -55,8 +55,8 @@ public class MainActivity extends AppCompatActivity {
         layout.width = TableRow.LayoutParams.MATCH_PARENT;
         layout.height = (int) (80 * scale + 0.5f);
         layout.weight = 1;
-        layout.leftMargin = (int) (25 * scale + 0.5f);
-        layout.rightMargin = (int) (25 * scale + 0.5f);
+        layout.leftMargin = (int) (18 * scale + 0.5f);
+        layout.rightMargin = (int) (18 * scale + 0.5f);
         layout.topMargin = (int) (5 * scale + 0.5f);
         layout.bottomMargin = (int) (5 * scale + 0.5f);
 
