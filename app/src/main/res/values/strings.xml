@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ScrumPoker</string>
+    <string name="tap_to_reveal">Tap to reveal</string>
 </resources>

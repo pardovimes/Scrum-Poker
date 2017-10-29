@@ -1,7 +1,5 @@
 package com.enhancedapps.scrumpoker;
 
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,14 +8,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TableLayout tableLayout;
-    String[] numbers = new String[] {
+    private TableLayout tableLayoutCards;
+    private Button buttonTapToReveal;
+    private Button buttonCardSelected;
+    private String cardSelected;
+    private String[] numbers = new String[] {
         "0","1/2","1",
         "2","3","5",
         "8","13","20",
@@ -30,7 +32,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        tableLayout = (TableLayout) findViewById(R.id.tableLayoutCards);
+        tableLayoutCards = (TableLayout) findViewById(R.id.tableLayoutCards);
+        buttonTapToReveal = (Button) findViewById(R.id.buttonTapToReveal);
+        buttonCardSelected = (Button) findViewById(R.id.buttonCardSelected);
 
         List<Button> buttons = initiateButtons();
 
@@ -42,8 +46,22 @@ public class MainActivity extends AppCompatActivity {
             tableRow.addView(buttons.get(i+1));
             tableRow.addView(buttons.get(i+2));
 
-            tableLayout.addView(tableRow);
+            tableLayoutCards.addView(tableRow);
         }
+
+        buttonTapToReveal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showCardNumber(cardSelected);
+            }
+        });
+
+        buttonCardSelected.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTableCards();
+            }
+        });
     }
 
     private List<Button> initiateButtons(){
@@ -73,8 +91,8 @@ public class MainActivity extends AppCompatActivity {
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //Toast.makeText(context,v.getId()+"",Toast.LENGTH_SHORT).show();
-                    animatedStartActivity();
+                    cardSelected = ((Button) v).getText().toString();
+                    showTapToReveal();
                 }
             });
 
@@ -92,8 +110,8 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(context,v.getId()+"",Toast.LENGTH_SHORT).show();
-                animatedStartActivity();
+                cardSelected = ((Button) v).getText().toString();
+                showTapToReveal();
             }
         });
 
@@ -110,22 +128,52 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
     }
 
-    private void animatedStartActivity() {
-        // we only animateOut this activity here.
-        // The new activity will animateIn from its onResume() - be sure to
-        // implement it.
-        final Intent intent = new Intent(getApplicationContext(), SecondActivity.class);
-        // disable default animation for new intent
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+    private void showTapToReveal() {
+
         ActivitySwitcher.animationOut(
-                findViewById(R.id.container),
+                findViewById(R.id.tableLayoutCards),
                 getWindowManager(),
                 new ActivitySwitcher.AnimationFinishedListener() {
                     @Override
                     public void onAnimationFinished() {
-                        startActivity(intent);
+                        ActivitySwitcher.animationIn(
+                                buttonTapToReveal,
+                                getWindowManager()
+                        );
                     }
                 });
     }
 
+    private void showCardNumber(final String text) {
+
+        ActivitySwitcher.animationOut(
+                buttonTapToReveal,
+                getWindowManager(),
+                new ActivitySwitcher.AnimationFinishedListener() {
+                    @Override
+                    public void onAnimationFinished() {
+                        buttonCardSelected.setText(text);
+                        ActivitySwitcher.animationIn(
+                                buttonCardSelected,
+                                getWindowManager()
+                        );
+                    }
+                });
+    }
+
+    private void showTableCards(){
+
+        ActivitySwitcher.animationOut(
+                buttonCardSelected,
+                getWindowManager(),
+                new ActivitySwitcher.AnimationFinishedListener() {
+                    @Override
+                    public void onAnimationFinished() {
+                        ActivitySwitcher.animationIn(
+                                tableLayoutCards,
+                                getWindowManager()
+                        );
+                    }
+                });
+    }
 }
