@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">ScrumPoker</string>
     <string name="tap_to_reveal">Tap to reveal</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
