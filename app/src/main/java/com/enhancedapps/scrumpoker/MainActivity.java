@@ -1,6 +1,7 @@
 package com.enhancedapps.scrumpoker;
 
 import android.graphics.Color;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -13,7 +14,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends FragmentActivity {
 
     private TableLayout tableLayoutCards;
     private Button buttonTapToReveal;
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        /*
         tableLayoutCards = (TableLayout) findViewById(R.id.tableLayoutCards);
         buttonTapToReveal = (Button) findViewById(R.id.buttonTapToReveal);
         buttonCardSelected = (Button) findViewById(R.id.buttonCardSelected);
@@ -62,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 showTableCards();
             }
         });
+        */
     }
 
     private List<Button> initiateButtons(){

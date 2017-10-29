@@ -2,8 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.enhancedapps.scrumpoker.Fragments.CardFragment"
-    android:background="@android:color/background_dark">
+    tools:context="com.enhancedapps.scrumpoker.Fragments.CardFragment">
 
     <Button
         android:id="@+id/buttonCardSelected"
