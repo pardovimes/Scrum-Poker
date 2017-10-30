@@ -140,6 +140,7 @@ public class MainActivity extends AppCompatActivity {
                                 buttonTapToReveal,
                                 getWindowManager()
                         );
+                        manageClickables(buttonTapToReveal);
                     }
                 });
     }
@@ -157,6 +158,7 @@ public class MainActivity extends AppCompatActivity {
                                 buttonCardSelected,
                                 getWindowManager()
                         );
+                        manageClickables(buttonCardSelected);
                     }
                 });
     }
@@ -173,7 +175,17 @@ public class MainActivity extends AppCompatActivity {
                                 tableLayoutCards,
                                 getWindowManager()
                         );
+                        manageClickables(tableLayoutCards);
                     }
                 });
+    }
+
+    private void manageClickables(View v){
+
+        tableLayoutCards.setClickable(false);
+        buttonTapToReveal.setClickable(false);
+        buttonCardSelected.setClickable(false);
+
+        v.setClickable(true);
     }
 }
